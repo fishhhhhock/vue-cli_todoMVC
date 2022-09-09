@@ -1,0 +1,51 @@
+<template>
+    <ul>
+      <li v-for="m in messageList" :key="m.id">
+        <!-- 跳转路由并携带query参数，to字符串写法 -->
+        <!-- <router-link :to="`/home/message/detail?id=${m.id}&title=${m.title}`">{{m.title}}</router-link>&nbsp;&nbsp; -->
+
+        <!-- 跳转路由并携带query参数，to对象写法 -->
+        <router-link 
+        :to="{
+          path:'/home/message/detail',
+          query:{
+            id:m.id,
+            title:m.title
+            }
+          }">
+        {{m.title}}
+        </router-link>
+        &nbsp;&nbsp;
+        <button @click="pushShow(m)">push查看</button>
+        <button>replace查看</button>
+      </li>
+      <hr>
+      <router-view></router-view>
+    </ul>
+</template> 
+
+<script>
+    export default {
+        name:'Message',
+        data() {
+          return {
+            messageList:[
+              {id:'001',title:'消息001'},
+              {id:'002',title:'消息002'},
+              {id:'003',title:'消息003'},
+            ]
+          }
+        },
+        methods: {
+          pushShow(m){
+            this.$router.push({
+              name:'xiangqing',
+            })
+          }
+        },
+    }
+</script>
+
+<style>
+
+</style>
