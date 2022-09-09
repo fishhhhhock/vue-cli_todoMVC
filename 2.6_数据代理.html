@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 数据代理：通过一个对象代理对另一个对象中属性的操作(读、写) -->
+    <!-- Vue中的数据代理：通过vm对象处理data对象中属性的操作 读、写     
+            基本原理：通过object.defineProperty()把data对象中所有属性添加到vm上
+                为每一个添加到vm上的属性，都指定一个getter、setter,在其内部去操作读、写data中对应的属性 -->
+    <script>
+        let obj = {x:100}
+        let obj2 = {y:200}
+
+        Object.defineProperty(obj2,'x',{
+            get(){
+                return obj.x
+            },
+            set(value){
+                obj.x = value
+            }
+        })
+    </script>
+</body>
+</html>

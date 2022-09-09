@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>1.v-if = "布尔值" 创建元素和删除元素，适合切换频率不高的场景</h2>
+        <input type="button" value="下拉菜单" @click="isShow=!isShow">
+        <p v-if="isShow">下拉菜单的内容</p>
+
+        <h2>2. v-show="布尔值" 显示和隐藏元素:设置CSS的display，适合切换频率较高的场景</h2>
+        <input type="button" value="下拉菜单" @click="isShow2=!isShow2">
+        <p v-show="isShow2">下拉菜单的内容</p>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            isShow:false,
+            isShow2:false
+        }
+    })
+</script>
+</html>

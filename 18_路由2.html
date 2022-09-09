@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .left {
+            float: left;
+            width: 100px;
+            height: 800px;
+            background-color: #ccc;
+            padding-top: 100px;
+        }
+
+        .left li {
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .left li a {
+            display: block;
+            text-decoration: none;
+        }
+
+        .right {
+            height: 800px;
+            width: 900px;
+            background-color: lightblue;
+        }
+
+        .active {
+            background-color: lightcoral;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 5.设置菜单：可以用a标签也可以用router-link -->
+        <ul class="left">
+            <!-- <li v-for="(item,index) in menus"><a :href="item.path" @click="change(index)" -->
+                    <!-- :class="{active:currentIndex == index}"> -->
+                    <!-- {{ item.name }}</a></li> -->
+            <!-- <li><a href="#/vips">会员管理</a></li> -->
+            <!-- <li><a href="#/supplier">供应商管理</a></li> -->
+
+            <!-- 官方写法 -->
+            <li>
+                <router-link to="/goods">商品管理</router-link>
+            </li>
+            <li>
+                <router-link to="/vips">会员管理</router-link>
+            </li>
+            <li>
+                <router-link to="/supplier">供应商管理</router-link>
+            </li>
+        </ul>
+        <div class="right">
+            <!-- 6.设置内容的出口 -->
+            <router-view></router-view>
+        </div>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<!-- 1. 引入vue-router插件 -->
+<script src="../vuejs/vue-router.js"></script>
+<script>
+
+    // 2.准备子组件
+    let Goods = {
+        template: '<h1>商品管理</h1>'
+    }
+    let Vips = {
+        template: '<h1>会员管理</h1>'
+    }
+    let Supplier = {
+        template: '<h1>供应商管理</h1>'
+    }
+
+
+    // 3.创建路由对象，配置路由表
+    let router = new VueRouter({
+        routes: [{
+            path: '/goods',
+            component: Goods
+        }, {
+            path: '/vips',
+            component: Vips
+
+        }, {
+            path: '/supplier',
+            component: Supplier
+
+        }]
+    })
+
+    // 4.把router实例，注入到vue实例中
+    new Vue({
+        el: '#app',
+        data: {
+            menus: [
+                {
+                    path: '#/goods',
+                    name: '商品管理'
+                },
+                {
+                    path: '#/vips',
+                    name: '会员管理'
+                },
+                {
+                    path: '#/supplier',
+                    name: '供应商管理'
+                }
+            ],
+            currentIndex: null
+        },
+        methods: {
+            change(index) {
+                this.currentIndex = index;
+            }
+        }
+    })
+
+
+</script>
+
+</html>

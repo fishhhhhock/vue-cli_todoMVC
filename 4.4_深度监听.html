@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+       深度监视：
+        (1)Vue中的watch默认不监视对象内部值的改变(一层)
+        (2)配置deep：true可以监视对象内部值的改变(多层)
+        (3)Vue自身可以监视对象内部值的改变，但Vue提供的watch默认不可以
+        (4)使用watch时根据数据的具体结构决定是否采用深度监视
+       
+       
+       
+         -->
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="changeWeather">切换天气</button>
+        <hr>
+        <h3>a的值是:{{numbers.a}}</h3>
+        <button @click="numbers.a++">点我让a+1</button>
+        <h3>b的值是:{{numbers.b}}</h3>
+        <button @click="numbers.b++">点我让b+1</button>
+        <button @click="numbers = {a:666,b:888}">彻底替换掉numbers</button>
+
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isHot: true,
+            numbers: {
+                a: 1,
+                b: 1
+            }
+        },
+        computed: {
+            info() {
+                return this.isHot ? '炎热' : '凉爽'
+            },
+
+        },
+        methods: {
+            changeWeather() {
+                this.isHot = !this.isHot
+            }
+
+        },
+        watch: {
+            // 正规写法
+            // isHot: {
+            // immediate: true,//初始化时让handler调用一下
+            // handler在isHot发生改变时调用
+            // handler(newValue, oldValue) {
+            // console.log('isHot被修改');
+            // },
+            // 
+            // },
+            numbers: {
+                deep: true,
+                handler() {
+                    console.log('值被改变');
+                }
+            },
+            // 简写方法：
+            isHot(newValue, oldValue) {
+                console.log('isHot被修改');
+            },
+
+        }
+
+
+    })
+    // 正常写法
+
+    // vm.$watch('abc', {
+    // immediate: true,//初始化时让handler调用一下
+    // handler在isHot发生改变时调用
+    // handler(newValue, oldValue) {
+    // console.log('isHot被修改');
+    // }
+    // 
+    // })
+    // 简写方法!!不可以写箭头函数!!
+    vm.$watch('abc',function(newValue, oldValue) {
+        // immediate: true,//初始化时让handler调用一下
+        // handler在isHot发生改变时调用
+            console.log('isHot被修改');
+        })
+    
+
+
+
+
+
+</script>
+
+</html>

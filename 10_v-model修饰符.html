@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>1.v-model修饰符：把字符串变成数字，因为输入框输入获取到的是字符串，需要先转换格式</h2>
+        <input type="text" v-model.number="num">
+        <h2>2.v-model修饰符：去除前后的空格</h2>
+        <input type="text" v-model.trim="str">
+        <h2>3.v-model修饰符：默认情况使用oninpu触发，改成失去焦点触发使用onchange</h2>
+        <input type="text" v-model.lazy="tex">
+        <h2>4.键盘修饰符</h2>
+        <input type="text" @keyup.enter="'show">
+        <h2>5.v-pre指令：表示本行代码不编译</h2>
+        <p v-pre>{{ 梦里花落知多少 }}</p>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            num:0,
+            str:'',
+            tex:''
+        }
+    })
+
+
+</script>
+</html>

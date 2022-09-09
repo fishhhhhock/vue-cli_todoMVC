@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>属性的绑定 v-bind</h2>
+        <p v-bind:title="titleVal">{{ msg }}</p>
+        <p :title="titleVal">{{ msg }}</p>
+
+        <h2>绑定事件 v-on:事件名="事件处理函数或表达式" 简写 @事件名="事件处理函数或表达式"</h2>
+        <!-- 1.事件的回调需要配置在methods对象中，最终会在vm上 
+             2.methods中配置的函数不要用箭头函数，否则this指向windows而不是vm
+             3.methods配置的函数都是被Vue所管理的函数，this指向vm或组件实例对象
+             4.@click="demo"和@click="demo($event)"效果一致，但是后者可以传参-->
+
+
+        <!-- <input type="button" value="减一" v-on:click="num--"> -->
+        <!-- <input type="text" v-model="num"> -->
+        <!-- <input type="button" value="加一" @click="num++"> -->
+
+        <input type="button" value="减一" v-on:click="cut">
+        <input type="text" v-model="num">
+        <input type="button" value="加一" @click="add">
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    
+    new Vue({
+        el:'#app',
+        data:{
+            msg:'东哥买股票变现66亿',
+            titleVal:'最新热点新闻',
+            num:1
+        },
+        // 写方法的地方
+        methods:{
+            cut(){
+                let num = this.num;
+                num--;
+                if(num < 1){//最小是1
+                    this.num = 1;
+                    alert("最少买一份")
+                }else{
+                    this.num  = num;
+                }
+            },
+            add(){
+                let num = this.num;
+                num++;
+                if(num > 5){//控制最大是5
+                    this.num = 5;
+                    alert("库存为5份")
+                }else{
+                    this.num = num;
+                }
+            }
+        }
+    })
+</script>
+
+</html>

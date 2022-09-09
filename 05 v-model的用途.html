@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非常重要的案例</title>
+</head>
+
+<body>
+    <div id="app">
+        <form action="#">
+            <!-- v-model 里面是可以设置vulue值，但是不用写value，应该设置了也没用，优先级不过v-model高。
+                v-model本质上就是设置和获取value值，所以必须是用在表单身上 -->
+            姓名(文本)：<input type="text" value="这是文本" v-model="msg">
+            <!-- 如果设置value值，只是单向进行数据渲染 -->
+            <!-- 姓名(文本)：<input type="text" :value="msg"> -->
+             <br><br>
+            性别(单选按钮)：
+               <input name="sex" type="radio" value="man" v-model="sex" />男
+               <input name="sex" type="radio" value="women" v-model="sex"/>女
+             <br><br>
+            技能(多选框)：
+               <input type="checkbox" name="skills" value="java" v-model="skill">Java开发
+               <input type="checkbox" name="skills" value="vue" v-model="skill">Vue.js开发
+               <input type="checkbox" name="skills" value="python" v-model="skill">Python开发
+             <br><br>
+            城市(下拉框)：
+             <select name="citys" v-model="myadr">
+               <!-- <option value="bj">北京</option> -->
+               <option :value="item.value" v-for="item in city">{{ item.title }}</option>
+             </select>
+             <br><br>
+            说明(多行文本)：<textarea cols="30" rows="5" v-model="inf"></textarea>
+             <br><br>
+             <!-- 记得阻止默认行为：submit表单会自动把收集到的数据发到form的action所在的后端接口处 -->
+             <button type="submit" @click.prevent="postFn">提交</button>
+           </form>
+    </div>
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg : '印度两摩托车发生碰撞，23人受伤',
+            sex : 'man', //设置默认值
+            skill : ['java','vue'], //设置默认值
+            city : [
+                {
+                    title : '梅州',
+                    value : 'mz'
+                },{
+                    title : '惠州',
+                    value : 'hz'
+                },{
+                    title : '阳江',
+                    value : 'yj'
+                },{
+                    title : '肇庆',
+                    value : 'zq'
+                },{
+                    title : '湛江',
+                    value : 'zj'
+                },{
+                    title : '潮汕',
+                    value : 'cs'
+                }
+            ],
+            myadr : 'hz',
+            inf : ''
+        },
+
+        methods : {
+            postFn() {
+                //获取数据，整合成指定的结构：联调
+                let data = {
+                    msg : this.msg,
+                    sex : this.sex,
+                    skill : this.skill,
+                    myadr : this.myadr,
+                    inf : this.inf
+                }
+
+                //ajax
+                console.log(data, '获取到的所有表单数据，准备发送给后端-ajax')
+            }
+        }
+    })
+</script>
+
+</html>

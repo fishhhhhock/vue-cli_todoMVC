@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            padding: 50px;
+        }
+
+        .father {
+            background-color: tomato;
+        }
+
+        .son {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>1.事件的传参</h2>
+        <p>{{ num }}</p>
+        <input type="button" value="加1" class="abcd" @click="add">
+        <!-- 如果传进来有实参，同时又需要使用ev对象，可以按照以下方法： -->
+        <!-- <input type="button" value="加1" class="abcd" @click="add(5,$event)"> -->
+        <h2>2.事件修饰符:bug是因为事件冒泡。阻止事件冒泡: .stop</h2>
+        <div class="father" @click="outer">
+            <div class="son" @click.stop="inner"></div>
+        </div>
+
+        <h2>3.事件的修饰符：阻止默认行为 .prevent</h2>
+        <a href="www.baidu.com" @click.prevent="show">百度</a>
+
+        <h2>4.事件修饰符：让该事件只触发一次</h2>
+        <input type="button" value="点击" @click.once="total++">
+        <p>{{ total }}</p>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            num: 0,
+            total: 0
+        },
+        methods: {
+            // 如果传进来有实参，同时又需要使用ev对象，可以按照以下方法：
+            // add(data,ev){
+            add(ev) {
+                console.log(ev, '事件源对象');
+                console.log(ev.target, '事件源对象节点');
+                console.log(ev.target.value, '事件源对象节点的值');
+                console.log(ev.target.tagName, '事件源对象节点的名称');//打印出来默认是大写，后期使用需要转化成小写
+                console.log(ev.target.className, '事件源对象节点的类名');
+                this.num++;
+            },
+            outer() {
+                alert('我是爸爸');
+            },
+            inner() {
+                alert('我是儿子');
+            },
+            show() {
+                alert('触发事件');
+            },
+            // add1() {
+                // this.total++;
+            // }
+        }
+    })
+</script>
+
+</html>

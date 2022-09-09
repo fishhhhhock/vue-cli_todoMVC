@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+        收集表单数据：
+            若 <input type="text" />,则v-model收集的是value值，用户输入的就是value值
+            若 <input type="radio" />,则v-model收集的是value值，且要给标签配置value值
+            若 <input type="checkbox" />,
+                1.没有配置input的value属性，那么收集的就是checked(勾选or未勾选，是布尔值)
+                2.配置input的value属性：
+                    (1)v-model的初始值是非数组，那么收集的就是checked(勾选or未勾选，是布尔值)
+                    (2)v-model的初始值是数组，那么收集的就是value组成的数组
+            备注：v-model的三个修饰符：
+                lazy：失去焦点再收集数据
+                number：输入字符串转换为有效的数字
+                trim：输入首尾空格过滤
+     -->
+
+    <div id="app">
+        <form action="#">
+            <!-- v-model里面可以设置value值，但是不用写value，应该设置了也没用，优先级不过v-model高 -->
+            <!-- v-model本质上就是设置和获取value值，所以必须使用在表单身上-->
+            姓名（文本）：<input type="text" name="" id="" value="姓名" v-model="msg">
+            <!-- 如果设置value值，只是单向进行数据渲染，文本框输入新的内容，数据栏不能获取到内容 -->
+            <!-- 姓名（文本）：<input type="text" name="" id="" :value="msg" > -->
+            <br><br>
+            性别（单选按钮）：<!-- 通过点击按钮，可以获取到input里面的value值-->
+            <input type="radio" type="radio" value="man" v-model="sex">男
+            <input type="radio" type="radio" value="woman" v-model="sex">女
+            <br><br>
+            技能（多选框）
+            <input type="checkbox" name="skills" value="java" v-model="skill">java开发
+            <input type="checkbox" name="skills" value="vue" v-model="skill">vue.js开发
+            <input type="checkbox" name="skills" value="python" v-model="skill">python开发
+            <br><br>
+            城市（下拉框）
+            <select name="citys" id="" v-model="myadr" >
+                <option :value="item.value" v-for="item in city">{{ item.title }}</option>
+            </select>
+            <br><br>
+            说明（多行文本）
+            <textarea name="" id="" cols="30" rows="10" v-model="inf"></textarea>
+            <br><br>
+            <button type="submit" @>提交</button>
+        </form>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+     new Vue({
+        //  el: '#app',
+        el: '#app',
+        data: {
+            msg:'印度两辆摩托车相撞',
+            sex:'man',//设置默认值，这里默认选中男
+            skill:[],//多选框要设置成数组形式存储数据
+            city:[
+                {
+                    title:'梅州',
+                    value:'mz'
+                },
+                {
+                    title:'惠州',
+                    value:'hz'
+                },                
+                {
+                    title:'阳江',
+                    value:'yj'
+                },                
+                {
+                    title:'肇庆',
+                    value:'zq'
+                },                
+                {
+                    title:'湛江',
+                    value:'zj'
+                },                
+                {
+                    title:'潮汕',
+                    value:'cs'
+                }
+            ],
+            myadr:'hz',//设置默认值惠州
+            inf:''
+        },
+
+        methods:{
+            postFn(){
+                // 获取数据，整合成指定的结构：联调
+                let data = {
+                    msg:this.msg,
+                    sex:this.sex,
+                    skill:this.skill,
+                    myadr:this.adr,
+                    inf:this.inf
+                }
+
+                // ajax
+                console.log(data,'获取到所有的表单数据，准备发送给后端-ajax');
+            }
+        }
+     })
+
+
+</script>
+
+</html>

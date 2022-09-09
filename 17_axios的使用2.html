@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,index) in list">{{ item.id }}.{{ item.name }}</li>
+        </ul>
+        <input type="button" value="获取后端数据" @click="render">
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script src="../vuejs/axios.js"></script>
+<script>
+    /*
+        1.http://www.npmjs.com/package/axios
+        *请求方式：
+            * get 获取数据
+            * post 新增数据
+            * put 修改数据
+            * delete 删除数据
+    */
+    new Vue({
+        el: '#app',
+        data: {
+            list: []
+        },
+        methods: {
+            // 功能：封装方法，发送ajax
+            getdata() {
+                let result = axios.get('../database/data.json');
+                console.log(result);
+                result.then(res => {
+                    console.log(res.data);
+                    this.list = res.data;//获取到的后端数据，存到本地的data里面
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
+            render(){
+                this.getdata();
+            }
+        },
+        // 发送ajax
+        created() {
+            // 已进入页面，实例创建完成就马上获取后端的数据
+            this.getdata()
+        }
+    })
+
+
+</script>
+
+</html>

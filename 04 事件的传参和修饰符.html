@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            padding: 50px;
+        }
+        .father{
+            background-color: lightcoral;
+        }
+        .son{
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>1.事件的传参</h2>
+        <p>{{ num }}</p>
+        <input class="abcd" type="button" value="加1" @click="add(5,$event)">
+
+        <h2>2.事件的修饰符:bug是因为事件冒泡。阻止事件冒泡 .stop</h2>
+        <div class="father" @click="outer">
+            <div class="son" @click.stop="inner"></div>
+        </div>
+
+        <h2>3.事件的修饰符:阻止默认行为 .prevent</h2>
+        <a href="http://www.baidu.com" @click.prevent="show">百度</a>
+        
+        <h2>4.事件的修饰符:让该事件只触发一次 .once</h2>
+        <input type="button" value="点击" @click.once="total++">
+        <p>{{ total }}</p>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            num: 0,
+            total : 0
+        },
+        methods: {
+            add(data,ev) {
+                console.log(ev,'事件源对象');
+                console.log(data,'传进来的实参');
+                console.log(ev.target,'事件源对象节点');
+                console.log(ev.target.value,'事件源对象节点的值');
+                console.log(ev.target.tagName,'事件源对象节点的名称'); //INPUT
+                console.log(ev.target.className,'事件源对象节点的名称');
+                this.num++;
+            },
+            outer() {
+                alert('我是老爸');
+            },
+            inner() {
+                alert('我是儿子');
+            },
+            show() {
+                alert('触发这里')
+            }
+        }
+    })
+</script>
+
+</html>
