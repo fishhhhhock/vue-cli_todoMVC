@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 一个重要的内置关系：VueComponent.prototype.__proto === Vue.prototype
+        为什么要有这个关系：让组件实例对象(vc)可以访问到Vue原型上的属性、方法    
+    -->
+
+    <div id="app">
+        <app-head></app-head>
+        <app-main></app-main>
+        <app-foot></app-foot>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script src="./14.components/appHead.js"></script>
+<script src="./14.components/appMain.js"></script>
+<script src="./14.components/appFoot.js"></script>
+<script>
+    // 注册全局组件:组件一般再单独一个文件，然后使用script引入，由于组件需要使用Vue，所以要放在引入Vue文件的下方
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+
+
+</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-model:必须用在表单元素，能进行交互的 -->
+        数学：<input type="text" v-model="math">
+        语文：<input type="text" v-model="chinese"><br><br><br>
+        <!-- 如果是普通的方法放在v-model里面必须要写（）调用方法 -->
+        总分（methods普通方法）:<input type="text" v-model="total1()"><br><br><br>
+        <!-- 计算属性在v-model里面调用的时候不能加() -->
+        总分（computed计算属性-getter）:<input type="text" v-model="total2"><br><br><br>
+        总分（computed计算属性-setter）:<input type="text" v-model="total3"><br><br><br>
+        总分（watch监听器）:<input type="text" v-model="total4"><br><br><br>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            math: '',
+            chinese: '',
+            total4: ''
+
+        },
+        // 存放方法的地方：普通方法
+        methods: {
+            total1() {
+                console.log('普通方法被调用-total1');
+                return this.math * 1 + this.chinese * 1;
+            }
+        },
+        // 计算属性：本质上是一个属性,就像一个data，但是data是单向的，计算属性是双向的，所以使用的时候用双大括号
+        computed: {
+            // 计算属性里面的getter方法
+            total2() {
+                console.log('计算属性里面的getter方法');
+                return this.math * 1 + this.chinese * 1;
+            },
+            total3: {
+                get() {//get和set不能随便取名，必须写成这个单词
+                    return this.math * 1 + this.chinese * 1;
+                },
+                set(val) {//接收数据:把总分平均分给数学和语文
+                    console.log(val);
+                    this.math = this.chinese = val / 2;
+                }
+            }
+        },
+        // 监听器：局部监听器
+        watch: {
+            math(newval, oldval) {
+                console.log(newval);
+                this.total4 = this.chinese * 1 + newval * 1;
+            }
+        }
+    })
+
+    // 全局监听器
+    console.log(vm);
+    vm.$watch('chinese', (newval) => {
+        console.log(newval, '新的语文成绩');
+        vm.total4 = vm.math * 1 + newval * 1;
+    })
+
+
+</script>
+
+</html>

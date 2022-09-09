@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>1.全局注册指令：v-focus：自动聚焦</h1>
+        <input type="text" v-focus>
+
+        <h2>2.局部指令注册 v-uppertext，能把value里面的字母都变成大写</h2>
+        <input type="text" v-uppertext="msg">
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+
+    // 全局注册指令
+    Vue.directive('focus',{
+        inserted(el){//el就是文本框
+            console.log(el,66);
+            el.focus();//利用原生js方法解决聚焦的兼容问题
+        }
+    })
+    new Vue({
+        el:'#app',
+        data:{
+            msg:'afsafas'
+        },
+        methods:{},
+        watch:{},
+        computed:{},
+        // 注册局部指令
+        directives:{
+            'uppertext':function(el,binding){
+                console.log(el,888);
+                console.log(binding,999);
+                let oldval = binding.value;
+                el.value = oldval.toUpperCase();//把字母变成大写
+            }
+        }
+    })
+
+
+</script>
+</html>

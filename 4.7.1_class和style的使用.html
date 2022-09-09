@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active{
+            color: green;
+        }
+
+        .delete{
+            background: red;
+        }
+
+        .error{
+            font-size: 35px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>1.普通写法：添加样式</h1>
+        <h2 class="active delete">床前明月光</h2>
+
+        <h1>2.字符串写法</h1>
+        <h2 :class="clName">follow me</h2>
+
+        <h1>3.对象的写法</h1>
+        <h2 :class="{active:isred,delete:true}">girls</h2>
+
+        <h1>4.数组的写法:如果是css值要加单引号，如果是vue值不用</h1>
+        <h2 :class="['active','delete']">嗯嗯</h2>
+        <h2 :class="[name1,name2]">嗯嗯</h2>
+
+        <h1>5.style添加样式 内联样式==行内样式,直接附属性，两个属性之间是分号，使用vue之间是逗号！！</h1>
+        <h2 style="color:red;background:#d8d8d8">enen</h2>
+        <h2 :style="{color:colorName,background:bgcl}">enen</h2>
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            clName:'active',
+            isred:true,
+            name1:'active',
+            name2:'delete',
+            colorName:'red',
+            bgcl:'#d8d8d8'
+        }
+    })
+
+
+</script>
+<body>
+    <div id="app"></div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+
+
+</script>
+<body>
+    <div id="app"></div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+
+
+</script>
+<body>
+    <div id="app"></div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+
+
+</script>

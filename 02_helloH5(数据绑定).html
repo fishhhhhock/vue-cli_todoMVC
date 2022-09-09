@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<!-- Vue中有2种数据绑定的方式：
+        1.单向绑定 v-bind ： 数据只能从data流向页面
+        2.双向绑定 v-model: 数据可以从data和页面之间相互流动
+          注：1.双向绑定一般应用在表单雷元素中(input\select...)
+             2.v-model:value=""可以简写为v-model=""，因为v-model默认收集value值
+        -->
+    
+
+</head>
+<!-- 常见面试题：
+    什么是 MVVM 模型？ MVVM 是 Model-View-ViewModel 的缩写，它是一种软件架构风格
+Model：模型， 数据对象（对应data中的数据）
+View：视图，模板页面（用于渲染数据） 
+ViewModel：视图模型，其实本质上就是 Vue 实例 -->
+<body>
+    <div id="app">
+        <!-- 视图层 -->
+        <p>{{ msg }}</p>
+        <p>{{ str }}</p>
+        <!-- v-model 的双向数据绑定：MVVM模式  应用在表单类标签（输入类标签-->
+        <!-- MVVM设计模式:Model View ViewModel,核心是VM，即ViewModel，保证数据和视图的一致性。
+            Vue.js 采用数据劫持结合发布者-订阅者模式的方式，在数据变动时发布消息给订阅者，触发相应的监听回调。 -->
+        <input type="text" v-model="str">
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    // 1.实例化对象
+    let vm = new Vue({
+        el:'#app',//el:设置vue的挂载点，不能设置在body\html身上
+        data:{
+            msg:'你好，我的第一个vue程序666',
+            str:'秋名山车神'//数据层内容改变<->视图层数据改变
+        }
+    })
+</script>
+</html>

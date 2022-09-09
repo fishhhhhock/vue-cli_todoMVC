@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>1.v-for="(item, index) in arr" :key="" 用于展示数据</h2>
+        <!--  -->
+        <li v-for="(item,index) in arr">{{ index+1 }},{{ item.title }}-{{ item.content }}</li>
+        <li v-for="item in arr">{{ item.title }}-{{ item.content }}</li>
+
+        <h2>2.v-for 遍历对象</h2>
+        <ul>
+            <!-- <li>1.name-罗永浩</li> -->
+            <li v-for="(val,attr,index) in inf">{{ index+1 }}.{{ attr }}-{{ val }}</li>
+        </ul>
+
+    </div>
+</body>
+<script src="../vuejs/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            arr:[//json数据[{},{},{}]
+                {
+                    title:'马云',//键值对，title:键名（属性名 attr） content:属性值（val）
+                    content:'我对钱不感兴趣'
+                },{
+                    title:'刘强东',
+                    content:'不知妻美'
+                },{
+                    title:'马化腾',
+                    content:'南山必胜客'
+                }
+            ],
+            inf:{
+                name:'罗永浩',
+                title:'锤子手机',
+                content:'我要中杯'
+
+            }
+        }
+    })
+</script>
+</html>
